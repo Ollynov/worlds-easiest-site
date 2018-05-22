@@ -68,7 +68,7 @@ class Inputs extends React.Component {
   render() {
     return (
       <div>
-        <h1 style={{ textAlign: 'center' }}>WELCOME to The World's Easiest SITE</h1>
+        <h1 style={{ textAlign: 'center' }}>#</h1>
         <form onSubmit = {this.submitMainInput}>
           <label>
             Name:
