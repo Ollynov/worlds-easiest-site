@@ -1,22 +1,4 @@
-const { PORT = 3001 } = process.env
-const express = require('express')
-const path = require('path')
-const app = express()
-var bodyParser = require('body-parser');
-var http = require('http');
-var fs = require('fs');
-
-// var shell = require('shelljs');
-var shell = require('child_process');
-// shell.exec('echo chiiii')
-
-
-app.use('/', express.static(path.join(__dirname, 'dist')))
-app.use(bodyParser.json());
-
-function buildHtml(name, description, image) {
-
-    return `<!DOCTYPE html> 
+<!DOCTYPE html> 
     <html lang="en-US"> 
       <head> 
         <meta charset="UTF-8"> 
@@ -36,8 +18,7 @@ function buildHtml(name, description, image) {
             <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-primary" color-on-scroll="400"> 
               <div class="container"> 
                 <div class="navbar-translate"><a class="navbar-brand" href="#" rel="tooltip">Creative CV</a> 
-                  <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-bar bar1"></span><span class="navbar-toggler-bar bar2"></span><span class="navbar-toggler-bar bar3"></span></button> \
-                </div> 
+                  <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-bar bar1"></span><span class="navbar-toggler-bar bar2"></span><span class="navbar-toggler-bar bar3"></span></button>                 </div> 
                 <div class="collapse navbar-collapse justify-content-end" id="navigation"> 
                   <ul class="navbar-nav"> 
                     <li class="nav-item"><a class="nav-link smooth-scroll" href="#about">About</a></li> 
@@ -59,8 +40,8 @@ function buildHtml(name, description, image) {
           <div class="page-header-image" data-parallax="true" style="background-image: url('images/cc-bg-1.jpg');"></div> 
           <div class="container"> 
             <div class="content-center"> 
-              <div class="cc-profile-image"><a href="#"><img src="${image}" alt="Image"/></a></div>
-              <div class="h2 title">${name}</div>
+              <div class="cc-profile-image"><a href="#"><img src="https://www.linkedin.com/dms/C5600AQE-4889p57s9w/profile-originalphoto-shrink_450_600/0?m=AQKdOe6yiYxdPgAAAWOKORiF6eSIn5a-tDzRRJdKO-rP7uCgWiC5WGEhSw&e=1527118787&v=beta&t=IiJnjoiD6FA6E0RIEi4muQLykj3EpuCzUCLQbMbOHs0" alt="Image"/></a></div>
+              <div class="h2 title">Aljosha Novakovic</div>
               <p class="category text-white">Web Developer, Graphic Designer,  Photographer</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="#" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
             </div>
           </div>
@@ -79,7 +60,7 @@ function buildHtml(name, description, image) {
             <div class="col-lg-6 col-md-12">
               <div class="card-body">
                 <div class="h4 mt-0 title">About</div>
-                <p>Hello! I am ${name}. ${description}</p>
+                <p>Hello! I am Aljosha Novakovic. Software Engineer</p>
               </div>
             </div>
             </div>
@@ -93,50 +74,4 @@ function buildHtml(name, description, image) {
         <script src="js/aos.js"></script>
         <script src="scripts/main.js"></script>
       </body>
-    </html>`;
-};
-
-app.post('/newProfile', (req, res, next) => {
-    const name = req.body.name
-    const description = req.body.description
-    const image = req.body.photo
-    console.log('hitting endpoint with body: ', req.body);
-    // http.createServer(function () {
-    //     res.write('<html><head></head><body>');
-    //     res.write(`<p>The website of the famous: ${req.body.name}</p>`);
-    //     res.end('</body></html>');
-    // }).listen(1337);
-    // const newApp = express();
-    // newApp.get('/', (request, response) => response.status(200).send('new website with: ' + name))
-    // newApp.listen(3002, () => console.log('app listening on port 3002!'))
-    
-
-    var fileName = './styled-v1/index.html';
-    var stream = fs.createWriteStream(fileName);
-
-    stream.once('open', function(fd) {
-        var html = buildHtml(name, description, image);
-        console.log('our built html: ', html)
-        stream.end(html);
-    });
-
-    setTimeout(function() {
-        shell.exec("up", {cwd: '/Users/Aljosha.novakovic@ibm.com/Dev/worlds-easiest-site/styled-v1'}, function(error,stdout,stderr){
-            console.log('Exit code:', error);
-            console.log('Program output:', stdout);
-            console.log('Program stderr:', stderr);
-        });
-    }, 5000)
-    
-    setTimeout(function(){ 
-        shell.exec("up url", {cwd: '/Users/Aljosha.novakovic@ibm.com/Dev/worlds-easiest-site/styled-v1'}, function(error,stdout,stderr){
-            console.log('Exit code:', error);
-            console.log('Program output:', stdout);
-            console.log('Program stderr:', stderr);
-            
-        });
-     }, 12000);
-
-})
-
-app.listen(PORT, () => console.log('app listening on port 3001!'))
+    </html>
